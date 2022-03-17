@@ -1,14 +1,21 @@
+import java.util.ArrayList;
 import java.util.UUID;
-
-
 public class LVM  {
-    private String name;
+    private ArrayList<String> PV;
+    private ArrayList<String> LV;
     private UUID u;
-    public LVM (String n) {
-        name = n ;
+    public LVM (ArrayList<String> PV, ArrayList<String> LV ) {
+     this.PV =PV;
+     this.LV = LV;
     }
-    public String getName() {
-        return name;
+    public LVM (String p, String L) {
+        PV.add(p);
+        LV.add(L);
     }
+    public ArrayList<String>  getPV() {
+        return PV;
+    }
+    public ArrayList<String> getLV () {
+            return LV;}
 
 }

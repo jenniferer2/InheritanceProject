@@ -1,15 +1,17 @@
-public class HardDrive extends LVM{
-    String size;
+public class HardDrive {
+    int size;
+    String name;
 
-    public HardDrive(String n , String s) {
-         super(n);
-        s = size;
+    public HardDrive(String n , int s) {
+name = n;
+s = size;
     }
-    public String getName() {
-            return LVM.getName(); }
-    public String getSize()
+    public int getSize()
     {
         return size;
+    }
+    public String getName() {
+        return name;
     }
 
 }

@@ -1,13 +1,14 @@
 import java.util.UUID;
-public class PhysicalVolume {
-    private UUID u;
-    private String name;
+public class PhysicalVolume{
+private String name;
     private HardDrive h;
+    private UUID u;
 
-    public PhysicalVolume (HardDrive h) {
-        name = h.getName();
+    public PhysicalVolume (String n, HardDrive h) {
+
         this.h = h;
         u = UUID.randomUUID();
+        name= n ;
     }
     public UUID getU ()
     {
@@ -21,5 +22,7 @@ public class PhysicalVolume {
         return h;
     }
 
-
+    public int getSizeofHD () {
+    return h.getSize();
     }
+}
