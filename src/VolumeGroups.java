@@ -2,29 +2,40 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class VolumeGroups extends LVM {
-private String name;
-private UUID u;
+private ArrayList<PhysicalVolume> PVs;
+private ArrayList<LogicalVolume> LVs;
 
 
-    public VolumeGroups ( ArrayList<String> PV, ArrayList<String> LV, String n) {
-        super(PV,LV);
-    name = n;
-    u = UUID.randomUUID();
-
+    public VolumeGroups (String n, UUID u, ArrayList<PhysicalVolume> PVs, ArrayList<LogicalVolume> LVs) {
+        super(n,u);
+        this.PVs = PVs;
+        this.LVs = LVs;
 }
+public ArrayList<PhysicalVolume> getPVs () {
+        return PVs;
+}
+    public ArrayList<LogicalVolume> getLVs () {
+        return LVs;
+    }
 
-//public int calculateSize () {
-    //    return PV.size();
-//}
-/*public int totalSpace () {
+    public int VGsize ()
+    {
         int total = 0;
-        for (int i = 0; i < PV.size(); i ++) {
-        //    total = total +(PV.get(i).getH()).getSize();
+        for (PhysicalVolume p : PVs) {
+            String x = p.getSize().substring(0 , p.getSize().indexOf("G"));
+            int y = Integer.parseInt(x);
+            total = total +  y;
         }
-}
-public int leftOver () {
+        return total;
+    }
 
-}
+    public int freeSpace ()
+    {
+        int total = VGsize();
+        for (LogicalVolume s: LVs) {
+            total = total - s.getSize();
+        }
+        return total;
 
- */
+    }
 }

@@ -1,12 +1,12 @@
 public class HardDrive {
-    int size;
+    String size;
     String name;
 
-    public HardDrive(String n , int s) {
+    public HardDrive(String n , String s) {
 name = n;
 s = size;
     }
-    public int getSize()
+    public String getSize()
     {
         return size;
     }
