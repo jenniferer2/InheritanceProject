@@ -72,6 +72,7 @@ public class Runner {
                     } else {
                         pVs.add(pv);
                         System.out.println(name + " created");
+
                     }
                 }
 
@@ -87,9 +88,48 @@ public class Runner {
             if (user.contains("vgcreate")) {
                 String extract = user.substring(user.indexOf(" ") + 1);
                 String name = extract.substring(0, extract.indexOf(" "));
-                String driveName = extract.substring(extract.indexOf(" ") + 1);
+                String pvName = extract.substring(extract.indexOf(" ") + 1);
+                boolean checker = false;
+                //check if vg name already exists
+                for (VolumeGroups vgs : vGs) {
+                    if (name.equals(vgs.getName())) {
+                        checker = true;
+                        break;
+                    }
+                }
+                //check if pv name exists
+                PhysicalVolume theOne = null;
 
+                for (PhysicalVolume pv : pVs) {
+                    if (!(pvName.equals(pv.getName()))) {
+                        checker = true;
+                    }
+                    else {
+                        theOne = pv;
+                        checker = false;
+                    }
+                }
+                if (theOne != null) {
+                    int count = 0;
+                    UUIDGenerator u = new UUIDGenerator ();
+                    VolumeGroups v = new VolumeGroups (name, u.getUUID(), theOne);
+                    vGs.add(v);
+                    for (VolumeGroups vs : vGs) {
+                       ArrayList<PhysicalVolume> pp =  vs.getPVs();
+                       for (PhysicalVolume p : pp) {
+                           if (p.getName().equals(theOne.getName())) {
+                               count++;
+                           }
+                       }
+                    }
+                    if (count != 1) {
+                        System.out.println("Error : This volume group could not be created");
+                    }
 
+                }
+                if (checker) {
+                    System.out.println("Error : This volume group could not be created");
+                }
 
             }
 

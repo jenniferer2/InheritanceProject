@@ -2,26 +2,44 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class VolumeGroups extends LVM {
-private ArrayList<PhysicalVolume> PVs;
-private ArrayList<LogicalVolume> LVs;
+private PhysicalVolume PVn;
+private LogicalVolume LVn;
+private ArrayList<PhysicalVolume> pVs;
+private ArrayList<LogicalVolume> lVs;
 
 
-    public VolumeGroups (String n, String u, ArrayList<PhysicalVolume> PVs, ArrayList<LogicalVolume> LVs) {
+
+
+    public VolumeGroups (String n, String u, PhysicalVolume PVn, LogicalVolume LVn) {
         super(n,u);
-        this.PVs = PVs;
-        this.LVs = LVs;
+        pVs.add(PVn);
+        lVs.add(LVn);
+
 }
+    public VolumeGroups (String n, String u, PhysicalVolume PVs) {
+        super(n,u);
+        pVs.add(PVs);
+
+    }
+
 public ArrayList<PhysicalVolume> getPVs () {
-        return PVs;
+        return pVs;
 }
     public ArrayList<LogicalVolume> getLVs () {
-        return LVs;
+        return lVs;
     }
+    public PhysicalVolume getPVn () {
+        return PVn;
+    }
+    public LogicalVolume getLVn () {
+        return LVn;
+    }
+
 
     public int VGsize ()
     {
         int total = 0;
-        for (PhysicalVolume p : PVs) {
+        for (PhysicalVolume p : pVs) {
             String x = p.getSize().substring(0 , p.getSize().indexOf("G"));
             int y = Integer.parseInt(x);
             total = total +  y;
@@ -32,7 +50,7 @@ public ArrayList<PhysicalVolume> getPVs () {
     public int freeSpace ()
     {
         int total = VGsize();
-        for (LogicalVolume s: LVs) {
+        for (LogicalVolume s: lVs) {
             total = total - s.getSize();
         }
         return total;
