@@ -7,10 +7,11 @@ public class Runner {
         String user = "";
         ArrayList<HardDrive> hDs = new ArrayList<HardDrive>();
         ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>();
-        System.out.println("Welcome to the LVM system! Enter your commands: " + "\n");
+        ArrayList<VolumeGroups> vGs = new ArrayList<VolumeGroups>();
+        System.out.println("Welcome to the LVM system! Enter your commands: " );
         while (!(user.equals("exit"))) {
             Scanner in = new Scanner(System.in);
-            System.out.print("cmd# ");
+            System.out.print("\n" + "cmd# ");
             user = in.nextLine();
             if (user.contains("install-drive")) {
                 boolean check = false;
@@ -28,6 +29,7 @@ public class Runner {
                     System.out.println("This hard drive is already installed.");
                 } else {
                     hDs.add(h);
+                    System.out.println("Drive " + name + " installed");
                 }
 
             }
@@ -45,14 +47,13 @@ public class Runner {
                 HardDrive hd = null;
                 for (HardDrive hs : hDs) {
                     if (driveName.equals(hs.getName())) {
-                          hd = hs;
+                        hd = hs;
                         break;
                     }
                 }
-                if (hd == null){
+                if (hd == null) {
                     System.out.println("Error : This Physical Volume could not be created");
-                }
-                else  {
+                } else {
 
                     UUIDGenerator u = new UUIDGenerator();
                     PhysicalVolume pv = new PhysicalVolume(name, u.getUUID(), hd);
@@ -70,22 +71,30 @@ public class Runner {
                         System.out.println("Error : This Physical Volume could not be created.");
                     } else {
                         pVs.add(pv);
+                        System.out.println(name + " created");
                     }
                 }
 
 
             }
-                if (user.contains("pvlist")) {
-             for (PhysicalVolume pv : pVs) {
-                pv.printAll();
+            if (user.contains("pvlist")) {
+                for (PhysicalVolume pv : pVs) {
+                    pv.printAll();
+                    // ^ needs fixing to adjust to VG
 
-             }
-               }
+                }
+            }
+            if (user.contains("vgcreate")) {
+                String extract = user.substring(user.indexOf(" ") + 1);
+                String name = extract.substring(0, extract.indexOf(" "));
+                String driveName = extract.substring(extract.indexOf(" ") + 1);
+
+
+
+            }
 
 
         }
-
-
     }
 }
 
