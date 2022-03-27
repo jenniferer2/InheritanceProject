@@ -4,7 +4,7 @@ public class HardDrive {
 
     public HardDrive(String n , String s) {
 name = n;
-s = size;
+size = s;
     }
     public String getSize()
     {

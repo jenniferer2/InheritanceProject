@@ -3,7 +3,7 @@ public class PhysicalVolume extends LVM{
     private HardDrive h;
 
 
-    public PhysicalVolume (String n, UUID u, HardDrive h) {
+    public PhysicalVolume (String n, String u, HardDrive h) {
         super(n ,u);
         this.h = h;
     }
@@ -16,5 +16,12 @@ public class PhysicalVolume extends LVM{
     public String getSize () {
         return h.getSize();
     }
+
+    public void printAll () {
+        System.out.println(super.getName() + ": [" + getSize() + "] [" + super.getU() + "]" );
+    }
+
+
+
 
 }

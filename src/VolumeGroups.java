@@ -6,7 +6,7 @@ private ArrayList<PhysicalVolume> PVs;
 private ArrayList<LogicalVolume> LVs;
 
 
-    public VolumeGroups (String n, UUID u, ArrayList<PhysicalVolume> PVs, ArrayList<LogicalVolume> LVs) {
+    public VolumeGroups (String n, String u, ArrayList<PhysicalVolume> PVs, ArrayList<LogicalVolume> LVs) {
         super(n,u);
         this.PVs = PVs;
         this.LVs = LVs;

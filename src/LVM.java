@@ -1,20 +1,22 @@
 import java.util.ArrayList;
 import java.util.UUID;
 public class LVM {
-    private UUID u;
+    private String u;
     private String name;
 
-    public LVM(String n, UUID u) {
+    public LVM(String n, String u) {
         name = n;
         this.u = u;
 
     }
 
-    public UUID getU () {
+    public String getU () {
             return u;
 }
 public String getName() {
         return name;
 }
+
+
     }
 
