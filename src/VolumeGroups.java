@@ -4,25 +4,27 @@ import java.util.UUID;
 public class VolumeGroups extends LVM {
 private PhysicalVolume PVn;
 private LogicalVolume LVn;
-private ArrayList<PhysicalVolume> pVs;
-private ArrayList<LogicalVolume> lVs;
+private ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>  () ;
+private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
 
 
 
 
-    public VolumeGroups (String n, String u, PhysicalVolume PVn, LogicalVolume LVn) {
+   /* public VolumeGroups (String n, String u, PhysicalVolume PVn, LogicalVolume LVn) {
         super(n,u);
         pVs.add(PVn);
         lVs.add(LVn);
 
 }
+
+    */
     public VolumeGroups (String n, String u, PhysicalVolume PVs) {
         super(n,u);
         pVs.add(PVs);
 
     }
 
-public ArrayList<PhysicalVolume> getPVs () {
+public ArrayList<PhysicalVolume> getpVs () {
         return pVs;
 }
     public ArrayList<LogicalVolume> getLVs () {
@@ -33,6 +35,17 @@ public ArrayList<PhysicalVolume> getPVs () {
     }
     public LogicalVolume getLVn () {
         return LVn;
+    }
+    public void printpVs() {
+        System.out.print("[");
+       for (int i = 0; i < getpVs().size(); i++  ) {
+            System.out.print(getpVs().get(i).getName());
+            if (i != getpVs().size() -1) {
+                System.out.print(",");
+            }
+        }
+        System.out.print("] ");
+       System.out.print("[" + super.getU() + "]");
     }
 
 

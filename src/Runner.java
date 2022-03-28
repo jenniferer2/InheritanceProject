@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ public class Runner {
         ArrayList<HardDrive> hDs = new ArrayList<HardDrive>();
         ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>();
         ArrayList<VolumeGroups> vGs = new ArrayList<VolumeGroups>();
+        ArrayList<>
         System.out.println("Welcome to the LVM system! Enter your commands: " );
         while (!(user.equals("exit"))) {
             Scanner in = new Scanner(System.in);
@@ -26,7 +28,7 @@ public class Runner {
                     }
                 }
                 if (check) {
-                    System.out.println("This hard drive is already installed.");
+                    System.out.println("Error : This hard drive is already installed.");
                 } else {
                     hDs.add(h);
                     System.out.println("Drive " + name + " installed");
@@ -52,7 +54,7 @@ public class Runner {
                     }
                 }
                 if (hd == null) {
-                    System.out.println("Error : This Physical Volume could not be created");
+                    System.out.println("Error : This Physical Volume could not be created because this hard drive does not exist.");
                 } else {
 
                     UUIDGenerator u = new UUIDGenerator();
@@ -60,28 +62,43 @@ public class Runner {
                     boolean c = false;
                     for (PhysicalVolume p : pVs) {
                         if (p.getH().getName().equals(pv.getH().getName())) {
+                            System.out.println("Error : This Physical Volume could not be created becayse this hard drive is associated with an already created PV.");
                             c = true;
+                            break;
                         }
                         if (p.getName().equals(pv.getName())) {
+                            System.out.println("Error : This Physical Volume could not be created because this PV already exists.");
                             c = true;
+                            break;
                         }
 
                     }
-                    if (c) {
-                        System.out.println("Error : This Physical Volume could not be created.");
-                    } else {
+                    if (!c) {
                         pVs.add(pv);
                         System.out.println(name + " created");
-
                     }
+
                 }
 
 
             }
             if (user.contains("pvlist")) {
                 for (PhysicalVolume pv : pVs) {
-                    pv.printAll();
-                    // ^ needs fixing to adjust to VG
+                    VolumeGroups choose = null;
+                    for (VolumeGroups v : vGs) {
+                        for (PhysicalVolume vv : v.getpVs()) {
+                            if (pv.getName().equals(vv.getName())) {
+                                choose = v;
+                                break;
+                            }
+                        }
+                    }
+                    if (choose != null) {
+                        pv.printAll(choose);
+                    }
+                    else {
+                        pv.printAll();
+                    }
 
                 }
             }
@@ -97,39 +114,116 @@ public class Runner {
                         break;
                     }
                 }
-                //check if pv name exists
-                PhysicalVolume theOne = null;
+                if (checker) {
+                    System.out.println("This VG could not be created because it already exists");
+                }
+                else {
+                    //check if pv name exists
+                    PhysicalVolume theOne = null;
 
-                for (PhysicalVolume pv : pVs) {
-                    if (!(pvName.equals(pv.getName()))) {
-                        checker = true;
+                    for (PhysicalVolume pv : pVs) {
+                        if (!(pvName.equals(pv.getName()))) {
+                            checker = true;
+                        } else {
+                            theOne = pv;
+                            checker = false;
+                        }
+                    }
+                    if (theOne == null) {
+                        System.out.println("Error : This volume group could not be created because this PV does not exist");
+
+                    }
+                    if (theOne != null) {
+                        int count = 0;
+                        UUIDGenerator u = new UUIDGenerator();
+                        VolumeGroups v = new VolumeGroups(name, u.getUUID(), theOne);
+                        vGs.add(v);
+                        for (VolumeGroups vs : vGs) {
+                            ArrayList<PhysicalVolume> pp = vs.getpVs();
+                            for (PhysicalVolume p : pp) {
+                                if (p.getName().equals(theOne.getName())) {
+                                    count++;
+                                }
+                            }
+                        }
+                        if (count != 1) {
+                            System.out.println("Error : This volume group could not be created because this PV is associated with another VG.");
+                            vGs.remove(v);
+                        } else {
+                            checker = false;
+                        }
+
+                    }
+                    if (!checker) {
+                        System.out.println(name + " created");
+                    }
+
+                }
+            }
+            if (user.contains("vgextend")) {
+                String extract = user.substring(user.indexOf(" ") + 1);
+                String name = extract.substring(0, extract.indexOf(" "));
+                String pvName = extract.substring(extract.indexOf(" ") + 1);
+                boolean letsgo1 = false;
+                boolean letsgo2 = false;
+
+                VolumeGroups v = null;
+                PhysicalVolume p = null;
+                for (VolumeGroups vv : vGs) {
+                    if(name.equals(vv.getName())) {
+                        letsgo1 = true;
+                        v = vv;
+                    }
+                }
+                for (PhysicalVolume pp : pVs) {
+                    if (pvName.equals(pp.getName())) {
+                        letsgo2 = true;
+                        p = pp;
+                    }
+                }
+
+
+                if (!letsgo1) {
+                    System.out.println("Error : Volume Group not found");
+                }
+                if (!letsgo2) {
+                    System.out.println("Error : Physical Volume not found");
+                }
+                if (v != null && p != null ) {
+                    int count = 0;
+                    for (VolumeGroups vs : vGs) {
+                        ArrayList<PhysicalVolume> pp = vs.getpVs();
+                        for (PhysicalVolume pe : pp) {
+                            if (pe.getName().equals(p.getName())) {
+                                count++;
+                            }
+                        }
+                    }
+                    if (count == 0) {
+                        ArrayList<PhysicalVolume> per = v.getpVs();
+                        per.add(p);
+                        System.out.println(name + " has been extended");
                     }
                     else {
-                        theOne = pv;
-                        checker = false;
+                        System.out.println("Error : this PV is part of another VG");
                     }
                 }
-                if (theOne != null) {
-                    int count = 0;
-                    UUIDGenerator u = new UUIDGenerator ();
-                    VolumeGroups v = new VolumeGroups (name, u.getUUID(), theOne);
-                    vGs.add(v);
-                    for (VolumeGroups vs : vGs) {
-                       ArrayList<PhysicalVolume> pp =  vs.getPVs();
-                       for (PhysicalVolume p : pp) {
-                           if (p.getName().equals(theOne.getName())) {
-                               count++;
-                           }
-                       }
-                    }
-                    if (count != 1) {
-                        System.out.println("Error : This volume group could not be created");
-                    }
+            }
 
+            if (user.contains("vglist")) {
+                for (VolumeGroups v : vGs) {
+                    System.out.print(v.getName() + ":" + " total: [" + v.VGsize() + "G] available: [" + v.freeSpace()+"G] " );
+                    v.printpVs();
+                    System.out.println("");
                 }
-                if (checker) {
-                    System.out.println("Error : This volume group could not be created");
-                }
+
+            }
+            if (user.contains("lvcreate")) {
+                String extract = user.substring(user.indexOf(" ") + 1);
+                String name = extract.substring(0, extract.indexOf(" "));
+                String size = extract.substring(extract.indexOf(" ") + 1);
+                String vgname = extract.substring(extract.indexOf("G") + 2);
+
 
             }
 
