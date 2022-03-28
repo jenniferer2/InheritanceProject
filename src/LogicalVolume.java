@@ -1,16 +1,19 @@
 import java.util.UUID;
 
 public class LogicalVolume extends LVM {
-    private int size;
+    private String size;
     private VolumeGroups v;
-    public LogicalVolume(String n, String u, int s, VolumeGroups v) {
+    public LogicalVolume(String n, String u, String s, VolumeGroups v) {
         super(n,u);
-        size =s;
+        size = s;
         this.v = v;
     }
-    public int getSize()
+    public String getSize()
     {
         return size;
+    }
+    public int getSizeint() {
+        return    Integer.parseInt(size.substring(0,size.indexOf("G")));
     }
     public VolumeGroups getV () {
         return v;

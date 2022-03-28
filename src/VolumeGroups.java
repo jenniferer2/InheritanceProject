@@ -64,7 +64,7 @@ public ArrayList<PhysicalVolume> getpVs () {
     {
         int total = VGsize();
         for (LogicalVolume s: lVs) {
-            total = total - s.getSize();
+            total = total - s.getSizeint();
         }
         return total;
 

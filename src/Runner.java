@@ -9,7 +9,7 @@ public class Runner {
         ArrayList<HardDrive> hDs = new ArrayList<HardDrive>();
         ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>();
         ArrayList<VolumeGroups> vGs = new ArrayList<VolumeGroups>();
-        ArrayList<>
+        ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
         System.out.println("Welcome to the LVM system! Enter your commands: " );
         while (!(user.equals("exit"))) {
             Scanner in = new Scanner(System.in);
@@ -223,6 +223,41 @@ public class Runner {
                 String name = extract.substring(0, extract.indexOf(" "));
                 String size = extract.substring(extract.indexOf(" ") + 1);
                 String vgname = extract.substring(extract.indexOf("G") + 2);
+                boolean check = false;
+                LogicalVolume l = null;
+                for (LogicalVolume lv : lVs) {
+                    if (name.equals(lv.getName())) {
+                        check = true;
+                    }
+                }
+                VolumeGroups vv = null;
+                int count = 0;
+                for (VolumeGroups v : vGs) {
+                    if (vgname.equals(v.getName())) {
+                        vv = v;
+                    }
+                }
+                if (vv == null) {
+                    System.out.println("Error : VG not found");
+                }
+                if (check) {
+                    System.out.println("Error : LV already exists");
+
+                }
+                if (vv != null && !check) {
+                    UUIDGenerator u = new UUIDGenerator();
+                    LogicalVolume ll = new LogicalVolume (name,u.getUUID(), size, vv );
+                    int s = Integer.parseInt(size.substring(0,size.indexOf("G")));
+                    if (vv.freeSpace() < s) {
+                        System.out.println("Error: the volume group does not have enough space.");
+                    }
+                    else {
+                        lVs.add(ll);
+
+                    }
+                }
+
+
 
 
             }
