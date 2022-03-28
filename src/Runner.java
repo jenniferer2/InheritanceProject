@@ -225,11 +225,13 @@ public class Runner {
                 String vgname = extract.substring(extract.indexOf("G") + 2);
                 boolean check = false;
                 LogicalVolume l = null;
+                // check if lv name alr exist
                 for (LogicalVolume lv : lVs) {
                     if (name.equals(lv.getName())) {
                         check = true;
                     }
                 }
+                // check if vg name exits
                 VolumeGroups vv = null;
                 int count = 0;
                 for (VolumeGroups v : vGs) {
@@ -244,6 +246,9 @@ public class Runner {
                     System.out.println("Error : LV already exists");
 
                 }
+
+
+
                 if (vv != null && !check) {
                     UUIDGenerator u = new UUIDGenerator();
                     LogicalVolume ll = new LogicalVolume (name,u.getUUID(), size, vv );
@@ -252,6 +257,7 @@ public class Runner {
                         System.out.println("Error: the volume group does not have enough space.");
                     }
                     else {
+                        System.out.println("LV created");
                         lVs.add(ll);
 
                     }

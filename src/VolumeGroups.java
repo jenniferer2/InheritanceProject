@@ -60,6 +60,11 @@ public ArrayList<PhysicalVolume> getpVs () {
         return total;
     }
 
+    public void addtoLVs (LogicalVolume lv) {
+        lVs.add(lv);
+
+    }
+
     public int freeSpace ()
     {
         int total = VGsize();
