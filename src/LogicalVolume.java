@@ -15,8 +15,12 @@ public class LogicalVolume extends LVM {
     public int getSizeint() {
         return    Integer.parseInt(size.substring(0,size.indexOf("G")));
     }
-    public VolumeGroups getV () {
-        return v;
+    public String getV () {
+        return v.getName();
+    }
+
+    public String getU() {
+        return super.getU() ;
     }
 
 

@@ -221,8 +221,9 @@ public class Runner {
             if (user.contains("lvcreate")) {
                 String extract = user.substring(user.indexOf(" ") + 1);
                 String name = extract.substring(0, extract.indexOf(" "));
-                String size = extract.substring(extract.indexOf(" ") + 1);
+                String size = extract.substring(extract.indexOf(" ") + 1, extract.indexOf("G") +1);
                 String vgname = extract.substring(extract.indexOf("G") + 2);
+
                 boolean check = false;
                 LogicalVolume l = null;
                 for (LogicalVolume lv : lVs) {
@@ -233,7 +234,7 @@ public class Runner {
                 VolumeGroups vv = null;
                 int count = 0;
                 for (VolumeGroups v : vGs) {
-                    if (vgname.equals(v.getName())) {
+                    if (v.getName().equals(vgname)) {
                         vv = v;
                     }
                 }
@@ -247,23 +248,28 @@ public class Runner {
                 if (vv != null && !check) {
                     UUIDGenerator u = new UUIDGenerator();
                     LogicalVolume ll = new LogicalVolume (name,u.getUUID(), size, vv );
-                    int s = Integer.parseInt(size.substring(0,size.indexOf("G")));
+                    int s = Integer.parseInt(size.substring(0, size.indexOf("G")));
                     if (vv.freeSpace() < s) {
                         System.out.println("Error: the volume group does not have enough space.");
                     }
                     else {
                         lVs.add(ll);
+                        System.out.println("LV created");
 
                     }
                 }
 
-
-
-
+            }
+            if (user.contains("lvlist")) {
+                for (LogicalVolume l : lVs) {
+                    System.out.print(l.getName() + ": [" + l.getSize() + "] [" + l.getV() + "] [" + l.getU() + "]" );
+                }
             }
 
 
         }
+        System.out.println("Saving data. Good-bye!");
     }
 }
+
 
