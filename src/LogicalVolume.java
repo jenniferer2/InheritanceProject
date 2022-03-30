@@ -19,9 +19,6 @@ public class LogicalVolume extends LVM {
         return v.getName();
     }
 
-    public String getU() {
-        return super.getU() ;
-    }
 
 
 }

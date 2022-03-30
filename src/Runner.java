@@ -256,6 +256,7 @@ public class Runner {
                         System.out.println("Error: the volume group does not have enough space.");
                     }
                     else {
+                        vv.addtoLVs(ll);
                         lVs.add(ll);
                         System.out.println("LV created");
 
@@ -265,7 +266,7 @@ public class Runner {
             }
             if (user.contains("lvlist")) {
                 for (LogicalVolume l : lVs) {
-                    System.out.print(l.getName() + ": [" + l.getSize() + "] [" + l.getV() + "] [" + l.getU() + "]" );
+                    System.out.println(l.getName() + ": [" + l.getSize() + "] [" + l.getV() + "] [" + l.getU() + "]" );
                 }
             }
 

@@ -8,16 +8,6 @@ private ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>  () ;
 private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
 
 
-
-
-   /* public VolumeGroups (String n, String u, PhysicalVolume PVn, LogicalVolume LVn) {
-        super(n,u);
-        pVs.add(PVn);
-        lVs.add(LVn);
-
-}
-
-    */
     public VolumeGroups (String n, String u, PhysicalVolume PVs) {
         super(n,u);
         pVs.add(PVs);
@@ -62,7 +52,6 @@ public ArrayList<PhysicalVolume> getpVs () {
 
     public void addtoLVs (LogicalVolume lv) {
         lVs.add(lv);
-
     }
 
     public int freeSpace ()
