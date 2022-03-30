@@ -1,0 +1,72 @@
+DESIGN DOCUMENT
+--------------------------------------------
+
+HardDrive class
+
+String size - size of hard drive
+String name - name of hard drive
+
+public Hardrive (String n, String s)
+Initializes instance variables name and size to n and s respectively
+
+public String getSize ()
+returns size of hard drive
+
+public String getName()
+returns name of hard drive
+
+--------------------------------------------
+SUPER CLASS
+
+LVM class
+
+String name - the name of the object
+String u - the UUID of the object
+
+public LVM (String n, String u)
+Initializes instance variable name and this.u to n and u respectively
+
+public String getU ()
+returns UUID of object
+
+public String getName()
+returns name of object
+
+--------------------------------------------
+SUBCLASS
+
+public class PhysicalVolume extends LVM
+
+HardDrive h - the hard drive associated with this PV
+
+public PhysicalVolume (String n, String u, HardDrive h)
+super(n ,u);
+Initializes instance variables from super class: name and this.u, to n and u. Then initializes teh hard drive this.h to h.
+
+
+    public HardDrive getH()
+    returns the hard drive
+
+    public String getSize ()
+    returns the size of the hard drive
+
+    public void printAll (VolumeGroups v)
+        prints information relating to the PV if it is associated with a VG
+
+    public void printAll()
+        prints information relating to the PV if it is not associated with a VG
+
+--------------------------------------------
+SUBCLASS
+public class VolumeGroups extends LVM
+
+ PhysicalVolume PVn;
+ LogicalVolume LVn;
+private ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>  () ;
+private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
+
+
+
+
+
+
