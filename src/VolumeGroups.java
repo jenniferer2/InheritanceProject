@@ -3,7 +3,7 @@ import java.util.UUID;
 
 public class VolumeGroups extends LVM {
 private PhysicalVolume PVn;
-private LogicalVolume LVn;
+
 private ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>  () ;
 private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
 
@@ -17,15 +17,16 @@ private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
 public ArrayList<PhysicalVolume> getpVs () {
         return pVs;
 }
-    public ArrayList<LogicalVolume> getLVs () {
+
+public ArrayList<LogicalVolume> getLVs () {
         return lVs;
     }
+
     public PhysicalVolume getPVn () {
         return PVn;
     }
-    public LogicalVolume getLVn () {
-        return LVn;
-    }
+
+
     public void printpVs() {
         System.out.print("[");
        for (int i = 0; i < getpVs().size(); i++  ) {
@@ -62,5 +63,11 @@ public ArrayList<PhysicalVolume> getpVs () {
         }
         return total;
 
+    }
+
+    public void printAll () {
+        System.out.print(super.getName() + ":" + " total: [" + VGsize() + "G] available: [" + freeSpace()+"G] " );
+        printpVs();
+        System.out.println("");
     }
 }

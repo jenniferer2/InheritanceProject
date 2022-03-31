@@ -3,8 +3,8 @@ public class HardDrive {
     String name;
 
     public HardDrive(String n , String s) {
-name = n;
-size = s;
+        name = n;
+        size = s;
     }
     public String getSize()
     {
@@ -14,4 +14,7 @@ size = s;
         return name;
     }
 
+    public void printAll () {
+        System.out.println(name + " [" + size + "]");
+    }
 }

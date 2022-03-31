@@ -15,6 +15,10 @@ returns size of hard drive
 public String getName()
 returns name of hard drive
 
+public void printAll ()
+prints information of the hard drive
+
+
 --------------------------------------------
 SUPER CLASS
 
@@ -41,7 +45,8 @@ HardDrive h - the hard drive associated with this PV
 
 public PhysicalVolume (String n, String u, HardDrive h)
 super(n ,u);
-Initializes instance variables from super class: name and this.u, to n and u. Then initializes teh hard drive this.h to h.
+this.h = h;
+Initializes instance variables from super class: name and this.u, to n and u respectively. Then initializes teh hard drive this.h to h.
 
 
     public HardDrive getH()
@@ -60,10 +65,86 @@ Initializes instance variables from super class: name and this.u, to n and u. Th
 SUBCLASS
 public class VolumeGroups extends LVM
 
- PhysicalVolume PVn;
- LogicalVolume LVn;
-private ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>  () ;
-private ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
+ PhysicalVolume PVn - physical volume object
+
+private ArrayList<PhysicalVolume> pVs - list of physical volumes
+private ArrayList<LogicalVolume> lVs - list of logical volumes
+
+ public VolumeGroups (String n, String u, PhysicalVolume PVs)
+        super(n,u);
+        pVs.add(PVs);
+Initializes instance variables from super class: name and this.u, to n and u respectively. Adds PhysicalVolume object PVs to pVs list.
+
+public ArrayList<PhysicalVolume> getpVs ()
+returns the pVs list
+
+public ArrayList<LogicalVolume> getLVs ()
+returns the lVs list
+
+  public PhysicalVolume getPVn ()
+  returns the physical volume object
+
+  public void printpVs()
+  prints the physical volumes associated with this volume group and prints the UUID
+
+  public void addtoLVs (LogicalVolume lv)
+  adds a LogicalVolume object to the lVs list
+
+  public int freeSpace ()
+  calculates the free space available in this VG
+
+  public void printAll ()
+  prints out all the information of this VG, calls the printpVs() method too
+--------------------------------------------
+
+public class LogicalVolume extends LVM
+
+String size - size of the LV
+VolumeGroups v - the VG associated with this LV
+
+public LogicalVolume(String n, String u, String s, VolumeGroups v)
+        super(n,u);
+        size = s;
+        this.v = v;
+Initializes instance variables from super class: name and this.u, to n and u respectively. Initializes the size of the lv to s and the VG to v.
+
+    public String getSize()
+     returns teh size of the LV
+
+    public int getSizeint()
+    returns the size of the LV as an integer since teh size is initially a string
+
+    public String getV ()
+    returns the name of the VG
+
+    public void printAll ()
+    prints all the information of the LV
+ --------------------------------------------
+ public class UUIDGenerator
+ String u - the variable that will hold the value of the UUID
+
+ public UUIDGenerator()
+ Initializes u to a generators UUID
+
+ public String getUUID()
+ returns the string u aka UUID
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

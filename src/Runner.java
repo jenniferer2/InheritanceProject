@@ -37,8 +37,7 @@ public class Runner {
             }
             if (user.contains("list-drives")) {
                 for (HardDrive h : hDs) {
-                    System.out.print(h.getName());
-                    System.out.println(" [" + h.getSize() + "]");
+                    h.printAll();
 
                 }
             }
@@ -212,9 +211,7 @@ public class Runner {
 
             if (user.contains("vglist")) {
                 for (VolumeGroups v : vGs) {
-                    System.out.print(v.getName() + ":" + " total: [" + v.VGsize() + "G] available: [" + v.freeSpace()+"G] " );
-                    v.printpVs();
-                    System.out.println("");
+                    v.printAll();
                 }
 
             }
@@ -266,7 +263,7 @@ public class Runner {
             }
             if (user.contains("lvlist")) {
                 for (LogicalVolume l : lVs) {
-                    System.out.println(l.getName() + ": [" + l.getSize() + "] [" + l.getV() + "] [" + l.getU() + "]" );
+                    l.printAll();
                 }
             }
 
