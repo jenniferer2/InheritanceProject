@@ -27,16 +27,18 @@ public ArrayList<LogicalVolume> getLVs () {
     }
 
 
-    public void printpVs() {
-        System.out.print("[");
+    public String printpVs() {
+        String s = "";
+        s = s + "[";
        for (int i = 0; i < getpVs().size(); i++  ) {
-            System.out.print(getpVs().get(i).getName());
+            s = s + (getpVs().get(i).getName());
             if (i != getpVs().size() -1) {
-                System.out.print(",");
+                s = s + (",");
             }
         }
-        System.out.print("] ");
-       System.out.print("[" + super.getU() + "]");
+        s = s + "] ";
+       s = s + "[" + super.getU() + "]";
+       return s;
     }
 
 
@@ -65,9 +67,7 @@ public ArrayList<LogicalVolume> getLVs () {
 
     }
 
-    public void printAll () {
-        System.out.print(super.getName() + ":" + " total: [" + VGsize() + "G] available: [" + freeSpace()+"G] " );
-        printpVs();
-        System.out.println("");
+    public String toString () {
+        return super.getName() + ":" + " total: [" + VGsize() + "G] available: [" + freeSpace()+"G] " + printpVs() + "\n";
     }
 }

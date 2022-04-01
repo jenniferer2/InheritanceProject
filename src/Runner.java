@@ -1,10 +1,10 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String user = "";
         ArrayList<HardDrive> hDs = new ArrayList<HardDrive>();
         ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>();
@@ -93,10 +93,10 @@ public class Runner {
                         }
                     }
                     if (choose != null) {
-                        pv.printAll(choose);
+                        System.out.print(pv.toString(choose));
                     }
                     else {
-                        pv.printAll();
+                        System.out.print(pv.toString());
                     }
 
                 }
@@ -211,7 +211,7 @@ public class Runner {
 
             if (user.contains("vglist")) {
                 for (VolumeGroups v : vGs) {
-                    v.printAll();
+                    System.out.println(v.toString());
                 }
 
             }
@@ -263,7 +263,7 @@ public class Runner {
             }
             if (user.contains("lvlist")) {
                 for (LogicalVolume l : lVs) {
-                    l.printAll();
+                    System.out.println (l.toString());
                 }
             }
 
@@ -271,11 +271,13 @@ public class Runner {
         }
         System.out.println("Saving data. Good-bye!");
 
+
+
+
+    }
+
     }
 
 
 
-}
-
-// use final variables for storing info 
 

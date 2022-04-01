@@ -3,20 +3,23 @@ DESIGN DOCUMENT
 
 HardDrive class
 
+Variables :
 String size - size of hard drive
 String name - name of hard drive
 
+Constructor
 public Hardrive (String n, String s)
 Initializes instance variables name and size to n and s respectively
 
+Methods
 public String getSize ()
 returns size of hard drive
 
 public String getName()
 returns name of hard drive
 
-public void printAll ()
-prints information of the hard drive
+public String toString ()
+returns information of the hard drive
 
 
 --------------------------------------------
@@ -24,12 +27,15 @@ SUPER CLASS
 
 LVM class
 
+Variables
 String name - the name of the object
 String u - the UUID of the object
 
+Constructor
 public LVM (String n, String u)
 Initializes instance variable name and this.u to n and u respectively
 
+Methods
 public String getU ()
 returns UUID of object
 
@@ -41,14 +47,14 @@ SUBCLASS
 
 public class PhysicalVolume extends LVM
 
+Variables
 HardDrive h - the hard drive associated with this PV
 
+Constructor
 public PhysicalVolume (String n, String u, HardDrive h)
-super(n ,u);
-this.h = h;
 Initializes instance variables from super class: name and this.u, to n and u respectively. Then initializes teh hard drive this.h to h.
 
-
+Methods
     public HardDrive getH()
     returns the hard drive
 
@@ -58,23 +64,23 @@ Initializes instance variables from super class: name and this.u, to n and u res
     public void printAll (VolumeGroups v)
         prints information relating to the PV if it is associated with a VG
 
-    public void printAll()
-        prints information relating to the PV if it is not associated with a VG
+    public String toString ()
+        returns information relating to the PV if it is not associated with a VG
 
 --------------------------------------------
 SUBCLASS
 public class VolumeGroups extends LVM
 
+Variables
  PhysicalVolume PVn - physical volume object
-
 private ArrayList<PhysicalVolume> pVs - list of physical volumes
 private ArrayList<LogicalVolume> lVs - list of logical volumes
 
+Constructor
  public VolumeGroups (String n, String u, PhysicalVolume PVs)
-        super(n,u);
-        pVs.add(PVs);
 Initializes instance variables from super class: name and this.u, to n and u respectively. Adds PhysicalVolume object PVs to pVs list.
 
+Methods
 public ArrayList<PhysicalVolume> getpVs ()
 returns the pVs list
 
@@ -84,8 +90,8 @@ returns the lVs list
   public PhysicalVolume getPVn ()
   returns the physical volume object
 
-  public void printpVs()
-  prints the physical volumes associated with this volume group and prints the UUID
+  public String toString()
+  returns the physical volumes associated with this volume group and returns the UUID
 
   public void addtoLVs (LogicalVolume lv)
   adds a LogicalVolume object to the lVs list
@@ -93,21 +99,21 @@ returns the lVs list
   public int freeSpace ()
   calculates the free space available in this VG
 
-  public void printAll ()
-  prints out all the information of this VG, calls the printpVs() method too
+  public String toString ()
+  returns all the information of this VG, calls the printpVs() method too
 --------------------------------------------
 
 public class LogicalVolume extends LVM
 
+Variables
 String size - size of the LV
 VolumeGroups v - the VG associated with this LV
 
+Constructor
 public LogicalVolume(String n, String u, String s, VolumeGroups v)
-        super(n,u);
-        size = s;
-        this.v = v;
 Initializes instance variables from super class: name and this.u, to n and u respectively. Initializes the size of the lv to s and the VG to v.
 
+Methods
     public String getSize()
      returns teh size of the LV
 
@@ -117,15 +123,19 @@ Initializes instance variables from super class: name and this.u, to n and u res
     public String getV ()
     returns the name of the VG
 
-    public void printAll ()
-    prints all the information of the LV
+    public String toString ()
+    returns all the information of the LV
  --------------------------------------------
  public class UUIDGenerator
+
+ Variables
  String u - the variable that will hold the value of the UUID
 
+Constructor
  public UUIDGenerator()
  Initializes u to a generators UUID
 
+Methods
  public String getUUID()
  returns the string u aka UUID
 --------------------------------------------

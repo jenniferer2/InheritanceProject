@@ -17,12 +17,11 @@ public class PhysicalVolume extends LVM{
         return h.getSize();
     }
 
-    public void printAll (VolumeGroups v) {
-        System.out.println(super.getName() + ": [" + v.getName() + "] " + "[" + getSize() + "] [" + super.getU() + "]" );
+    public String toString (VolumeGroups v) {
+        return (super.getName() + ": [" + v.getName() + "] " + "[" + getSize() + "] [" + super.getU() + "]" );
     }
-    public void printAll() {
-        System.out.println(super.getName() + ": [" + getSize() + "] [" + super.getU() + "]" );
-
+    public String toString() {
+         return (super.getName() + ": [" + getSize() + "] [" + super.getU() + "]" );
     }
 
 

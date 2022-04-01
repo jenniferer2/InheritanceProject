@@ -27,7 +27,7 @@ public class ReadWriteTextFileJDK7 {
         text.writeLargerTextFile(OUTPUT_FILE_NAME, lines);
     }
 
-    final static String FILE_NAME = "C:\\Temp\\input.txt";
+    final static String FILE_NAME = "input.txt";
     final static String OUTPUT_FILE_NAME = "C:\\Temp\\output.txt";
     final static Charset ENCODING = StandardCharsets.UTF_8;
 
@@ -60,6 +60,16 @@ public class ReadWriteTextFileJDK7 {
         }
     }
 
+    void readLargerTextFileAlternate(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        try (BufferedReader reader = Files.newBufferedReader(path, ENCODING)){
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                //process each line in some way
+                log(line);
+            }
+        }
+    }
 
     void writeLargerTextFile(String fileName, List<String> lines) throws IOException {
         Path path = Paths.get(fileName);
@@ -75,4 +85,4 @@ public class ReadWriteTextFileJDK7 {
         System.out.println(String.valueOf(msg));
     }
 
-} 
+}
