@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -269,10 +270,25 @@ public class Runner {
 
 
         }
+        BufferedWriter b = new BufferedWriter(new FileWriter("src//info.txt"));
+        for (HardDrive hdds : hDs) {
+            b.write(hdds.getName() + "|" + hdds.getSize());
+            b.newLine();
+        }
         System.out.println("Saving data. Good-bye!");
 
+        File info = new File("src//info.txt");
+        Scanner load = new Scanner(info);
+        while (load.hasNextLine()) {
+            String s = load.nextLine();
+            String[] parameters = s.split("")
+        }
 
 
+        ArrayList<HardDrive> hDs = new ArrayList<HardDrive>();
+        ArrayList<PhysicalVolume> pVs = new ArrayList<PhysicalVolume>();
+        ArrayList<VolumeGroups> vGs = new ArrayList<VolumeGroups>();
+        ArrayList<LogicalVolume> lVs = new ArrayList<LogicalVolume> ();
 
     }
 
